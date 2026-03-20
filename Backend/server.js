@@ -6,7 +6,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
-
+app.use(express.json())
 const sql = neon(process.env.DATABASE_URL);
 
 async function initDB() {
@@ -27,9 +27,13 @@ async function initDB() {
     }
 }
 
-app.get("/", (req, res) => {
-    res.send("It's working ");
-});
+app.post("/api/transactions", async (req,res) => {
+    try {
+       const {title,amount,category,user_id} = req.body
+    } catch (error) {
+        
+    }
+})   
 
 console.log("my port", process.env.PORT);
 
