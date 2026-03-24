@@ -1,44 +1,37 @@
 import express from "express";
 import dotenv from "dotenv";
-import { neon } from "@neondatabase/serverless";
+import { initDB } from "./config/db.js";
+import rateLimiter from "./middleware/rateLimiter.js";
+
+import transactionsRoute from "./routes/transactionsRoute.js";
+import job from "./config/cron.js";
 
 dotenv.config();
 
 const app = express();
+
+if (process.env.NODE_ENV === "production") job.start();
+
+// middleware
+app.use(rateLimiter);
+app.use(express.json());
+
+// our custom simple middleware
+// app.use((req, res, next) => {
+//   console.log("Hey we hit a req, the method is", req.method);
+//   next();
+// });
+
 const PORT = process.env.PORT || 5001;
-app.use(express.json())
-const sql = neon(process.env.DATABASE_URL);
 
-async function initDB() {
-    try {
-        await sql`CREATE TABLE IF NOT EXISTS transactions(
-            id SERIAL PRIMARY KEY,
-            user_id VARCHAR(255) NOT NULL,
-            title VARCHAR(255) NOT NULL,
-            amount DECIMAL(10,2) NOT NULL,
-            category VARCHAR(255) NOT NULL,
-            created DATE NOT NULL DEFAULT CURRENT_DATE
-        )`;
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
-        console.log("Database initialized successfully");
-    } catch (error) {
-        console.log("Error initializing DB", error);
-        process.exit(1);
-    }
-}
-
-app.post("/api/transactions", async (req,res) => {
-    try {
-       const {title,amount,category,user_id} = req.body
-    } catch (error) {
-        
-    }
-})   
-
-console.log("my port", process.env.PORT);
+app.use("/api/transactions", transactionsRoute);
 
 initDB().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is up and running on PORT:${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log("Server is up and running on PORT:", PORT);
+  });
 });
