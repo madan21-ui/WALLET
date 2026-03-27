@@ -1,4 +1,6 @@
 import { Text, View } from "react-native";
+import about from "./about";
+import { Link } from "expo-router";
 
 export default function Index() {
   return (
@@ -7,10 +9,10 @@ export default function Index() {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "red"
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
+      <image ></image>
     </View>
   );
 }
