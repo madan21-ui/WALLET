@@ -142,7 +142,7 @@ export default function Page() {
         <Text style={styles.buttonText}>Sign up</Text>
       </Pressable>
       {/* For your debugging purposes. You can just console.log errors, but we put them in the UI for convenience */}
-      {errors && <Text style={styles.debug}>{JSON.stringify(errors, null, 2)}</Text>}
+      {errors && <Text style={styles.debug}>{/*JSON.stringify(errors, null, 2)*/}</Text>}
 
       <View style={styles.linkContainer}>
         <Text>Already have an account? </Text>
