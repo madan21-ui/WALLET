@@ -1,7 +1,7 @@
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useAuth, useSignUp } from '@clerk/expo'
-import { type Href, Link, useRouter } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 
@@ -46,7 +46,7 @@ export default function Page() {
           if (url.startsWith('http')) {
             window.location.href = url
           } else {
-            router.push(url as Href)
+            router.push(url)
           }
         },
       })
