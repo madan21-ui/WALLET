@@ -4,12 +4,16 @@ import {Link, useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, StyleSheet, TextInput, View , Text} from 'react-native'
 import signUp from './sign-up'
+
+
 export default function Page() {
   const { signIn, errors, fetchStatus } = useSignIn()
   const router = useRouter()
   const [emailAddress, setEmailAddress] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [code, setCode] = React.useState('')
+
+  
 
   const handleSubmit = async () => {
     const { error } = await signIn.password({
@@ -173,7 +177,7 @@ export default function Page() {
 
         <Text style={styles.debug}>
           {/*JSON.stringify(errors, null, 2)*/}
-          hi
+         
           </Text>
       <View style={styles.linkContainer}>
         <Text>Don't have an account? </Text>
