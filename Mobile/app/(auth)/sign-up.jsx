@@ -3,16 +3,17 @@ import { useAuth, useSignUp } from '@clerk/expo'
 import {Link, useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, StyleSheet, TextInput, View , Text } from 'react-native'
-
+import { useState } from 'react'
 
 export default function Page() {
   const { signUp, errors, fetchStatus } = useSignUp()
   const { isSignedIn } = useAuth()
   const router = useRouter()
 
-  const [emailAddress, setEmailAddress] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [code, setCode] = React.useState('')
+  const [emailAddress, setEmailAddress] = useState('')
+  const [password, setPassword] = useState('')
+  const [code, setCode] = useState('')
+  const [error,setError] = useState('')
 
   const handleSubmit = async () => {
     const { error } = await signUp.password({
