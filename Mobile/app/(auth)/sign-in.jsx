@@ -88,6 +88,8 @@ export default function Page() {
     }
   }
 
+  
+
   if (signIn.status === 'needs_client_trust') {
     return (
       <View style={styles.container}>
@@ -116,6 +118,8 @@ export default function Page() {
         >
           <Text style={styles.buttonText}>Verify</Text>
         </Pressable>
+
+
         <Pressable
           style={({ pressed }) => [styles.secondaryButton, pressed && styles.buttonPressed]}
           onPress={() => signIn.mfa.sendEmailCode()}
