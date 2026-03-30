@@ -4,7 +4,8 @@ import {Link, useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, StyleSheet, TextInput, View , Text} from 'react-native'
 import signUp from './sign-up'
-
+import { useState } from 'react'
+import { styles } from '@/assets/styles/auth.style'
 
 export default function Page() {
   const { signIn, errors, fetchStatus } = useSignIn()
@@ -88,11 +89,11 @@ export default function Page() {
     }
   }
 
-  
 
-  if (signIn.status === 'needs_client_trust') {
+
+  if (true) {
     return (
-      <View style={styles.container}>
+      <View style={styles.verificationContainer}>
         <Text style={[styles.title, { fontSize: 24, fontWeight: 'bold' }]}>
           Verify your account
         </Text>
@@ -104,9 +105,15 @@ export default function Page() {
           onChangeText={(code) => setCode(code)}
           keyboardType="numeric"
         />
-        {errors.fields.code && (
-          <Text style={styles.error}>{errors.fields.code.message}</Text>
-        )}
+        {error ?(
+          <View style={styles.errorBox}>
+          <Ionicon name="alert-circle" size={20} color={COLORS.expense} />
+          <Text style={styles.errorText}>{error}</Text>
+          <TouchableOpacity onPress={() => setError("")} >
+            <Ionicon name="close" size={20} color={COLORS.textLight} />
+          </TouchableOpacity>
+         </View>
+        ) : null}
         <Pressable
           style={({ pressed }) => [
             styles.button,
